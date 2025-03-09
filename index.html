@@ -353,36 +353,7 @@ function compararOfertas() {
 
     let tabla = `
         <table class="comparison-table">
-            <tr>
-                <th>Concepto</th>
-                <th>Oferta 1</th>
-                <th>Oferta 2</th>
-            </tr>
-            <tr>
-                <td>Cantidad</td>
-                <td>${c1} cervezas</td>
-                <td>${c2} cervezas</td>
-            </tr>
-            <tr>
-                <td>Volumen por unidad</td>
-                <td>${m1} ml</td>
-                <td>${m2} ml</td>
-            </tr>
-            <tr>
-                <td>Volumen total</td>
-                <td>${totalMl1} ml</td>
-                <td>${totalMl2} ml</td>
-            </tr>
-            <tr>
-                <td>Precio</td>
-                <td>$${p1.toFixed(2)}</td>
-                <td>$${p2.toFixed(2)}</td>
-            </tr>
-            <tr class="${oferta1Mejor ? 'highlight' : ''}${oferta2Mejor ? '' : ''}">
-                <td>Valor (ml/$)</td>
-                <td>${oferta1.toFixed(2)} ml/$</td>
-                <td>${oferta2.toFixed(2)} ml/$</td>
-            </tr>
+
             <tr class="${oferta1Mejor ? 'highlight' : ''}${oferta2Mejor ? '' : ''}">
                 <td>Precio por litro</td>
                 <td>$${precioPorLitro1.toFixed(2)}/L</td>
