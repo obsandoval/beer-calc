@@ -256,14 +256,14 @@
         <div class="form-group">
             <label for="mililitros1">Mililitros por cerveza</label>
             <div class="input-group">
-                <input type="number" id="mililitros1" placeholder="Ej: 330">
+                <input type="number" id="mililitros1" placeholder="Ej: 330" onkeypress="soloNumeros(event)">
                 <span>ml</span>
             </div>
         </div>
         <div class="form-group">
             <label for="precio1">Precio total</label>
             <div class="input-group">
-                <input type="number" id="precio1" placeholder="Ej: 180">
+                <input type="number" id="precio1" placeholder="Ej: 180" onkeypress="soloNumeros(event)">
                 <span>$</span>
             </div>
         </div>
@@ -286,14 +286,14 @@
         <div class="form-group">
             <label for="mililitros2">Mililitros por cerveza</label>
             <div class="input-group">
-                <input type="number" id="mililitros2" placeholder="Ej: 355">
+                <input type="number" id="mililitros2" placeholder="Ej: 355" onkeypress="soloNumeros(event)">
                 <span>ml</span>
             </div>
         </div>
         <div class="form-group">
             <label for="precio2">Precio total</label>
             <div class="input-group">
-                <input type="number" id="precio2" placeholder="Ej: 200">
+                <input type="number" id="precio2" placeholder="Ej: 200" onkeypress="soloNumeros(event)">
                 <span>$</span>
             </div>
         </div>
@@ -311,6 +311,18 @@
 </footer>
 
 <script>
+function soloNumeros(event) {
+    // Permite teclas de control (backspace, delete, tab, escape, enter)
+    var charCode = event.which || event.keyCode;
+    if ([8, 9, 13, 27, 46].indexOf(charCode) !== -1) {
+        return;
+    }
+    // Permite solo números (0-9)
+    if (charCode < 48 || charCode > 57) {
+        event.preventDefault();
+    }
+}
+
 var myChart;
 
 function compararOfertas() {
