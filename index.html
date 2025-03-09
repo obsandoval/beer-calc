@@ -228,6 +228,8 @@
             font-size: 14px;
         }
     </style>
+    <!-- Se incluye la librería Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 <div class="container">
@@ -300,6 +302,8 @@
     <button onclick="compararOfertas()">Calcular Mejor Oferta</button>
 
     <div class="result" id="resultado"></div>
+    <!-- Canvas para el gráfico comparativo (inicialmente oculto) -->
+    <canvas id="graficoComparativo" width="400" height="200" style="display: none; margin-top: 20px;"></canvas>
 </div>
 
 <footer>
@@ -307,6 +311,8 @@
 </footer>
 
 <script>
+var myChart;
+
 function compararOfertas() {
     let c1 = parseFloat(document.getElementById('cantidad1').value);
     let m1 = parseFloat(document.getElementById('mililitros1').value);
@@ -322,6 +328,7 @@ function compararOfertas() {
     if ([c1, m1, p1, c2, m2, p2].some(isNaN)) {
         resultDiv.innerHTML = '⚠️ Por favor, completa todos los campos correctamente.';
         resultDiv.className = 'result show';
+        document.getElementById('graficoComparativo').style.display = 'none';
         return;
     }
 
@@ -353,8 +360,12 @@ function compararOfertas() {
 
     let tabla = `
         <table class="comparison-table">
-
-            <tr class="${oferta1Mejor ? 'highlight' : ''}${oferta2Mejor ? '' : ''}">
+            <tr>
+                <th></th>
+                <th>Oferta 1</th>
+                <th>Oferta 2</th>
+            </tr>
+            <tr class="${oferta1Mejor ? 'highlight' : ''}">
                 <td>Precio por litro</td>
                 <td>$${precioPorLitro1.toFixed(2)}/L</td>
                 <td>$${precioPorLitro2.toFixed(2)}/L</td>
@@ -371,8 +382,41 @@ function compararOfertas() {
     }
     
     resultDiv.className = `result ${clase} show`;
+
+    // Mostrar el gráfico comparativo
+    let canvas = document.getElementById('graficoComparativo');
+    canvas.style.display = 'block';
+    let ctx = canvas.getContext('2d');
+    
+    if (myChart) {
+        myChart.destroy();
+    }
+    
+    myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Oferta 1', 'Oferta 2'],
+            datasets: [{
+                label: 'Precio por litro ($/L)',
+                data: [precioPorLitro1, precioPorLitro2],
+                backgroundColor: ['rgba(249,168,38,0.6)', 'rgba(75,123,255,0.6)'],
+                borderColor: ['rgba(249,168,38,1)', 'rgba(75,123,255,1)'],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Precio ($/L)'
+                    }
+                }
+            }
+        }
+    });
 }
 </script>
-</div>
 </body>
 </html>
