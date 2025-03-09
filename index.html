@@ -4,78 +4,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Comparador de Ofertas de Cerveza</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Inter', sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f1f3f6;
+            color: #333;
+            padding: 10px;
             margin: 0;
-            background-color: #1e1e2f;
-            color: #ffffff;
         }
         .container {
-            background: #2a2a3b;
-            padding: 40px;
-            border-radius: 16px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-            width: 100%;
-            max-width: 600px;
-            margin: auto;
+            background-color: #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 15px;
         }
         h2 {
-            font-size: 2.2rem;
             text-align: center;
-            margin-bottom: 25px;
-            color: #ffffff;
+            margin-bottom: 15px;
+            font-size: 22px;
         }
         h3 {
-            font-weight: 600;
-            color: #c5c5d2;
-            font-size: 1.2rem;
-            margin-bottom: 10px;
+            font-size: 18px;
             margin-top: 20px;
+            margin-bottom: 10px;
         }
         select, input {
-            padding: 20px;
             width: 100%;
-            height: 100px;
-            border: 1px solid #44475a;
-            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 12px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
             box-sizing: border-box;
-            font-size: 2rem;
-            background-color: #3a3a4d;
-            color: #ffffff;
-            text-align: center;
-            margin-bottom: 20px;
+            font-size: 16px;
         }
         button {
-            margin-top: 30px;
             width: 100%;
-            padding: 20px;
-            background-color: #3b82f6;
+            padding: 14px;
+            background-color: #28a745;
             color: white;
+            font-size: 17px;
+            font-weight: 500;
             border: none;
-            border-radius: 8px;
-            font-size: 1.5rem;
+            border-radius: 6px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s ease;
         }
         button:hover {
-            background-color: #2563eb;
+            background-color: #218838;
         }
         .result {
-            margin-top: 30px;
-            padding: 30px;
-            border-radius: 8px;
-            background-color: #2e2e40;
-            color: #ffffff;
-            font-weight: 600;
+            margin-top: 15px;
+            padding: 12px;
+            background-color: #e2f0d9;
+            border-radius: 6px;
             text-align: center;
-            font-size: 1.5rem;
+            font-weight: 500;
+            font-size: 16px;
         }
     </style>
 </head>
@@ -86,6 +72,7 @@
     <h3>Oferta 1</h3>
     <select id="cantidad1">
         <option value="">Cantidad de cervezas</option>
+        <!-- Opciones del 6 al 24 -->
         <script>
             for(let i = 6; i <= 24; i++) {
                 document.write(`<option value="${i}">${i}</option>`);
@@ -98,6 +85,7 @@
     <h3>Oferta 2</h3>
     <select id="cantidad2">
         <option value="">Cantidad de cervezas</option>
+        <!-- Opciones del 6 al 24 -->
         <script>
             for(let i = 6; i <= 24; i++) {
                 document.write(`<option value="${i}">${i}</option>`);
@@ -139,5 +127,8 @@ function compararOfertas() {
     `;
 }
 </script>
+
+<div id="resultado" class="result"></div>
+</div>
 </body>
 </html>
