@@ -4,101 +4,307 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Comparador de Ofertas de Cerveza</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #f1f3f6;
-            color: #333;
-            padding: 10px;
+        :root {
+            --primary: #F9A826;
+            --secondary: #333F50;
+            --success: #28a745;
+            --background: #f8f9fa;
+            --card-bg: #fff;
+            --text: #333;
+            --border-radius: 12px;
+        }
+        
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        .container {
-            background-color: #fff;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background);
+            color: var(--text);
             padding: 20px;
-            margin-top: 15px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        h2 {
-            text-align: center;
-            margin-bottom: 15px;
-            font-size: 22px;
-        }
-        h3 {
-            font-size: 18px;
+        
+        .container {
+            width: 100%;
+            max-width: 520px;
+            background-color: var(--card-bg);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-radius: var(--border-radius);
+            padding: 30px;
             margin-top: 20px;
-            margin-bottom: 10px;
         }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .logo {
+            font-size: 40px;
+            margin-bottom: 10px;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: var(--secondary);
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+        
+        .subtitle {
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .offer-section {
+            background-color: rgba(249, 168, 38, 0.08);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+        }
+        
+        h3:before {
+            content: "🍺";
+            margin-right: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #495057;
+        }
+        
         select, input {
             width: 100%;
-            padding: 12px;
-            margin-bottom: 12px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-            box-sizing: border-box;
+            padding: 14px 16px;
+            border-radius: 8px;
+            border: 1px solid #ced4da;
+            background-color: #fff;
             font-size: 16px;
+            transition: all 0.3s;
+            font-family: 'Poppins', sans-serif;
         }
+        
+        select:focus, input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(249, 168, 38, 0.25);
+        }
+        
         button {
             width: 100%;
-            padding: 14px;
-            background-color: #28a745;
+            padding: 16px;
+            background-color: var(--primary);
             color: white;
-            font-size: 17px;
-            font-weight: 500;
+            font-size: 18px;
+            font-weight: 600;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s;
+            font-family: 'Montserrat', sans-serif;
+            margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(249, 168, 38, 0.3);
         }
+        
         button:hover {
-            background-color: #218838;
+            background-color: #e89100;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(249, 168, 38, 0.4);
         }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
         .result {
-            margin-top: 15px;
-            padding: 12px;
-            background-color: #e2f0d9;
-            border-radius: 6px;
-            text-align: center;
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 10px;
             font-weight: 500;
-            font-size: 16px;
+            font-size: 18px;
+            text-align: center;
+            display: none;
+        }
+        
+        .result.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .better {
+            background-color: #e7f5e7;
+            border: 1px solid #28a745;
+            color: #1d7933;
+        }
+        
+        .equal {
+            background-color: #e2e9f3;
+            border: 1px solid #4b6cb7;
+            color: #4b6cb7;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            margin-bottom: 15px;
+            border-collapse: collapse;
+        }
+        
+        .comparison-table th {
+            background-color: #f8f9fa;
+            padding: 10px;
+            text-align: left;
+        }
+        
+        .comparison-table td {
+            padding: 10px;
+            border-top: 1px solid #e9ecef;
+        }
+        
+        .comparison-table tr:last-child {
+            font-weight: 600;
+        }
+        
+        .highlight {
+            background-color: rgba(40, 167, 69, 0.1);
+        }
+
+        .input-group {
+            position: relative;
+        }
+        
+        .input-group span {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d;
+            font-weight: 500;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #6c757d;
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
 <div class="container">
-    <h2>🍺 Comparador de Ofertas</h2>
+    <div class="header">
+        <div class="logo">🍻</div>
+        <h2>Comparador de Ofertas</h2>
+        <p class="subtitle">Encuentra la mejor oferta de cerveza en segundos</p>
+    </div>
 
-    <h3>Oferta 1</h3>
-    <select id="cantidad1">
-        <option value="">Cantidad de cervezas</option>
-        <!-- Opciones del 6 al 24 -->
-        <script>
-            for(let i = 6; i <= 24; i++) {
-                document.write(`<option value="${i}">${i}</option>`);
-            }
-        </script>
-    </select>
-    <input type="number" id="mililitros1" placeholder="Mililitros por cerveza">
-    <input type="number" id="precio1" placeholder="Precio total">
+    <div class="offer-section">
+        <h3>Oferta 1</h3>
+        <div class="form-group">
+            <label for="cantidad1">Cantidad de cervezas</label>
+            <select id="cantidad1">
+                <option value="">Selecciona una cantidad</option>
+                <!-- Opciones del 6 al 24 -->
+                <script>
+                    for(let i = 6; i <= 24; i++) {
+                        document.write(`<option value="${i}">${i} cervezas</option>`);
+                    }
+                </script>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="mililitros1">Mililitros por cerveza</label>
+            <div class="input-group">
+                <input type="number" id="mililitros1" placeholder="Ej: 330">
+                <span>ml</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="precio1">Precio total</label>
+            <div class="input-group">
+                <input type="number" id="precio1" placeholder="Ej: 180">
+                <span>$</span>
+            </div>
+        </div>
+    </div>
 
-    <h3>Oferta 2</h3>
-    <select id="cantidad2">
-        <option value="">Cantidad de cervezas</option>
-        <!-- Opciones del 6 al 24 -->
-        <script>
-            for(let i = 6; i <= 24; i++) {
-                document.write(`<option value="${i}">${i}</option>`);
-            }
-        </script>
-    </select>
-    <input type="number" id="mililitros2" placeholder="Mililitros por cerveza">
-    <input type="number" id="precio2" placeholder="Precio total">
+    <div class="offer-section">
+        <h3>Oferta 2</h3>
+        <div class="form-group">
+            <label for="cantidad2">Cantidad de cervezas</label>
+            <select id="cantidad2">
+                <option value="">Selecciona una cantidad</option>
+                <!-- Opciones del 6 al 24 -->
+                <script>
+                    for(let i = 6; i <= 24; i++) {
+                        document.write(`<option value="${i}">${i} cervezas</option>`);
+                    }
+                </script>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="mililitros2">Mililitros por cerveza</label>
+            <div class="input-group">
+                <input type="number" id="mililitros2" placeholder="Ej: 355">
+                <span>ml</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="precio2">Precio total</label>
+            <div class="input-group">
+                <input type="number" id="precio2" placeholder="Ej: 200">
+                <span>$</span>
+            </div>
+        </div>
+    </div>
 
     <button onclick="compararOfertas()">Calcular Mejor Oferta</button>
 
     <div class="result" id="resultado"></div>
 </div>
+
+<footer>
+    Disfruta con responsabilidad 🍺
+</footer>
 
 <script>
 function compararOfertas() {
@@ -110,25 +316,92 @@ function compararOfertas() {
     let m2 = parseFloat(document.getElementById('mililitros2').value);
     let p2 = parseFloat(document.getElementById('precio2').value);
 
+    let resultDiv = document.getElementById('resultado');
+    resultDiv.classList.remove('better', 'equal', 'show');
+
     if ([c1, m1, p1, c2, m2, p2].some(isNaN)) {
-        document.getElementById('resultado').innerHTML = '⚠️ Completa todos los campos correctamente.';
+        resultDiv.innerHTML = '⚠️ Por favor, completa todos los campos correctamente.';
+        resultDiv.className = 'result show';
         return;
     }
 
-    let oferta1 = (c1 * m1) / p1;
-    let oferta2 = (c2 * m2) / p2;
+    let totalMl1 = c1 * m1;
+    let totalMl2 = c2 * m2;
+    let oferta1 = totalMl1 / p1;
+    let oferta2 = totalMl2 / p2;
+    
+    let precioPorLitro1 = (p1 / totalMl1) * 1000;
+    let precioPorLitro2 = (p2 / totalMl2) * 1000;
 
-    let mejorOferta = oferta1 > oferta2 ? '✅ ¡La Oferta 1 es mejor!' : oferta2 > oferta1 ? '✅ ¡La Oferta 2 es mejor!' : '🤝 Ambas ofertas son iguales.';
+    let oferta1Mejor = oferta1 > oferta2;
+    let oferta2Mejor = oferta2 > oferta1;
+    let iguales = oferta1 === oferta2;
+    
+    let mensaje = '';
+    let clase = '';
+    
+    if (oferta1Mejor) {
+        mensaje = '¡La Oferta 1 es mejor valor!';
+        clase = 'better';
+    } else if (oferta2Mejor) {
+        mensaje = '¡La Oferta 2 es mejor valor!';
+        clase = 'better';
+    } else {
+        mensaje = 'Ambas ofertas tienen el mismo valor';
+        clase = 'equal';
+    }
 
-    document.getElementById('resultado').innerHTML = `
-        Oferta 1: ${oferta1.toFixed(2)} ml/$<br>
-        Oferta 2: ${oferta2.toFixed(2)} ml/$<br><br>
-        ${mejorOferta}
+    let tabla = `
+        <table class="comparison-table">
+            <tr>
+                <th>Concepto</th>
+                <th>Oferta 1</th>
+                <th>Oferta 2</th>
+            </tr>
+            <tr>
+                <td>Cantidad</td>
+                <td>${c1} cervezas</td>
+                <td>${c2} cervezas</td>
+            </tr>
+            <tr>
+                <td>Volumen por unidad</td>
+                <td>${m1} ml</td>
+                <td>${m2} ml</td>
+            </tr>
+            <tr>
+                <td>Volumen total</td>
+                <td>${totalMl1} ml</td>
+                <td>${totalMl2} ml</td>
+            </tr>
+            <tr>
+                <td>Precio</td>
+                <td>$${p1.toFixed(2)}</td>
+                <td>$${p2.toFixed(2)}</td>
+            </tr>
+            <tr class="${oferta1Mejor ? 'highlight' : ''}${oferta2Mejor ? '' : ''}">
+                <td>Valor (ml/$)</td>
+                <td>${oferta1.toFixed(2)} ml/$</td>
+                <td>${oferta2.toFixed(2)} ml/$</td>
+            </tr>
+            <tr class="${oferta1Mejor ? 'highlight' : ''}${oferta2Mejor ? '' : ''}">
+                <td>Precio por litro</td>
+                <td>$${precioPorLitro1.toFixed(2)}/L</td>
+                <td>$${precioPorLitro2.toFixed(2)}/L</td>
+            </tr>
+        </table>
     `;
+
+    let diferencia = Math.abs(((oferta1 - oferta2) / Math.min(oferta1, oferta2)) * 100);
+
+    resultDiv.innerHTML = tabla + `<p><strong>${mensaje}</strong></p>`;
+    
+    if (!iguales) {
+        resultDiv.innerHTML += `<p>La diferencia es del ${diferencia.toFixed(1)}%</p>`;
+    }
+    
+    resultDiv.className = `result ${clase} show`;
 }
 </script>
-
-<div id="resultado" class="result"></div>
 </div>
 </body>
 </html>
